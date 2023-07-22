@@ -44,8 +44,7 @@
                     },
                     "configurations": {
                         "production": {
-                            "budgets": [
-                                {
+                            "budgets": [{
                                     "type": "initial",
                                     "maximumWarning": "5mb",
                                     "maximumError": "10mb"
@@ -96,8 +95,8 @@
                         ],
                         "tsConfig": "tsconfig.spec.json",
                         "assets": [
-                            "src/favicon.ico",
-                            "src/assets"
+                            "favicon.ico",
+                            "assets"
                         ],
                         "styles": [
                             "src/styles.css"
@@ -106,12 +105,12 @@
                     }
                 },
                 "deploy": {
-                  "builder": "angular-cli-ghpages:deploy"
+                    "builder": "angular-cli-ghpages:deploy"
                 }
             }
         }
     },
     "cli": {
-      "analytics": false
+        "analytics": false
     }
 }
