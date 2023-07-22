@@ -21,8 +21,8 @@
                         ],
                         "tsConfig": "tsconfig.app.json",
                         "assets": [
-                            "assets",
-                            "demo-prepare.html"
+                            "src/assets",
+                            "src/demo-prepare.html"
                         ],
                         "styles": [
                             "src/assets/css/app.css"
