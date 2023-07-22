@@ -1,0 +1,244 @@
+<div>
+    <ul class="flex space-x-2 rtl:space-x-reverse">
+        <li>
+            <a href="javascript:;" class="text-primary hover:underline">Dashboard</a>
+        </li>
+        <li class="before:content-['/'] ltr:before:mr-2 rtl:before:ml-2">
+            <span>Crypto</span>
+        </li>
+    </ul>
+    <div class="relative mt-5 flex flex-col gap-5 xl:flex-row">
+        <div
+            class="panel absolute z-10 hidden w-80 flex-none divide-y divide-[#ebedf2] overflow-y-auto border-0 p-0 dark:divide-[#191e3a] xl:relative xl:block"
+            [ngClass]="{ '!block h-full': isShowCryptoMenu }"
+        >
+            <button
+                type="button"
+                *ngFor="let item of coins"
+                class="flex w-full items-center p-4 hover:bg-gray-100 dark:hover:bg-[#192A3A]"
+                [ngClass]="{ 'bg-gray-100 dark:bg-[#192A3A]': selectedCoinObj ? selectedCoinObj.title === item.title : false }"
+                (click)="setSelectBitCoin(item)"
+            >
+                <div class="ltr:pr-4 rtl:pl-4">
+                    <div class="flex items-baseline font-semibold">
+                        <div class="text-md ltr:mr-1 rtl:ml-1">{{ item.title }}</div>
+                        <div class="text-xs uppercase text-white-dark">{{ '(' + item.alias + ')' }}</div>
+                    </div>
+                    <div class="mt-2 flex items-center" [ngClass]="[item.isUp ? 'text-success' : 'text-danger']">
+                        <div class="min-w-20 text-xl ltr:mr-3 rtl:ml-3">${{ item.value }}</div>
+
+                        <span>
+                            <svg
+                                width="24"
+                                height="24"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                                class="h-4 w-4"
+                                [ngClass]="{ 'rotate-180': item.isUp }"
+                            >
+                                <path
+                                    d="M12 4L12 20M12 20L18 14M12 20L6 14"
+                                    stroke="currentColor"
+                                    stroke-width="1.5"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                />
+                            </svg>
+                        </span>
+                        <div class="text-sm font-medium">{{ item.perc }}%</div>
+                    </div>
+                </div>
+                <div class="flex-1 overflow-hidden">
+                    <apx-chart
+                        *ngIf="item.isUp; else elseBlock"
+                        [series]="item.series"
+                        [chart]="profiteChartOption.chart"
+                        [stroke]="profiteChartOption.stroke"
+                        [markers]="profiteChartOption.markers"
+                        [colors]="profiteChartOption.colors"
+                        [grid]="profiteChartOption.grid"
+                        [tooltip]="profiteChartOption.tooltip"
+                        [responsive]="profiteChartOption.responsive"
+                    >
+                        <!-- loader -->
+                        <div class="grid min-h-[45px] place-content-center bg-white-light/30 dark:bg-dark dark:bg-opacity-[0.08]">
+                            <span class="inline-flex h-5 w-5 animate-spin rounded-full border-2 border-black !border-l-transparent dark:border-white"></span>
+                        </div>
+                    </apx-chart>
+                    <ng-template #elseBlock>
+                        <apx-chart
+                            [series]="item.series"
+                            [chart]="lossChartOption.chart"
+                            [stroke]="lossChartOption.stroke"
+                            [markers]="lossChartOption.markers"
+                            [colors]="lossChartOption.colors"
+                            [grid]="lossChartOption.grid"
+                            [tooltip]="lossChartOption.tooltip"
+                            [responsive]="lossChartOption.responsive"
+                        >
+                            <!-- loader -->
+                            <div class="grid min-h-[45px] place-content-center bg-white-light/30 dark:bg-dark dark:bg-opacity-[0.08]">
+                                <span
+                                    class="inline-flex h-5 w-5 animate-spin rounded-full border-2 border-black !border-l-transparent dark:border-white"
+                                ></span>
+                            </div>
+                        </apx-chart>
+                    </ng-template>
+                </div>
+            </button>
+        </div>
+
+        <div
+            class="absolute z-[5] hidden h-full w-full rounded-md bg-black/60"
+            [ngClass]="{ '!block xl:!hidden': isShowCryptoMenu }"
+            (click)="isShowCryptoMenu = !isShowCryptoMenu"
+        ></div>
+
+        <div *ngIf="selectedCoinObj" class="panel flex-1 p-0">
+            <div class="flex-wrap items-center border-b border-[#ebedf2] p-4 dark:border-[#191e3a] md:flex">
+                <div class="flex flex-1 items-start ltr:pr-4 rtl:pl-4">
+                    <button type="button" class="block hover:text-primary ltr:mr-5 rtl:ml-5 xl:hidden" (click)="isShowCryptoMenu = !isShowCryptoMenu">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6">
+                            <path d="M20 7L4 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+                            <path opacity="0.5" d="M20 12L4 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+                            <path d="M20 17L4 17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+                        </svg>
+                    </button>
+                    <div>
+                        <div class="flex items-center">
+                            <div class="text-md font-semibold ltr:mr-1 rtl:ml-1">{{ selectedCoinObj.title }}</div>
+                            <div class="text-xs font-semibold uppercase text-white-dark">{{ '(' + selectedCoinObj.alias + ')' }}</div>
+                        </div>
+                        <div class="mt-2 flex items-center" [ngClass]="selectedCoinObj.isUp ? 'text-success' : 'text-danger'">
+                            <div class="min-w-20 text-2xl ltr:mr-3 rtl:ml-3">${{ selectedCoinObj.value }}</div>
+                            <svg
+                                width="24"
+                                height="24"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                                class="mb-px h-4 w-4"
+                                [ngClass]="{ 'rotate-180': selectedCoinObj.isUp }"
+                            >
+                                <path
+                                    d="M12 4L12 20M12 20L18 14M12 20L6 14"
+                                    stroke="currentColor"
+                                    stroke-width="1.5"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                />
+                            </svg>
+                            <div class="mb-px text-sm font-medium">{{ selectedCoinObj.perc }}%</div>
+                        </div>
+                    </div>
+                </div>
+                <ul
+                    class="mt-5 grid grid-cols-2 divide-[#ebedf2] font-semibold text-white-dark rtl:divide-x-reverse dark:divide-[#253b5c] sm:mt-0 sm:grid-cols-4 sm:divide-x ltr:md:ml-auto rtl:md:mr-auto"
+                >
+                    <li class="px-4 py-1">
+                        Market Cap
+                        <span class="mt-1.5 block text-lg text-black dark:text-white-light">${{ selectedCoinObj.marketcap }}B</span>
+                    </li>
+                    <li class="px-4 py-1">
+                        Volume
+                        <span class="mt-1.5 block text-lg text-black dark:text-white-light">${{ selectedCoinObj.volume }}B </span>
+                    </li>
+                    <li class="px-4 py-1">
+                        Supply
+                        <span class="mt-1.5 block text-lg text-black dark:text-white-light">{{ selectedCoinObj.supply }}M</span>
+                    </li>
+                    <li class="px-4 py-1">
+                        All Time High
+                        <span class="mt-1.5 block text-lg text-black dark:text-white-light">${{ selectedCoinObj.highest }}</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="mb-5 grid grid-rows-1 gap-4 border-b border-[#ebedf2] p-4 dark:border-[#253b5c] sm:grid-cols-4">
+                <div>
+                    <div class="mb-1.5 font-semibold">Action</div>
+                    <select class="form-select text-white-dark">
+                        <option>Buy</option>
+                        <option>Sell</option>
+                    </select>
+                </div>
+                <div>
+                    <div class="mb-1.5 font-semibold">Wallet</div>
+                    <select class="form-select text-white-dark">
+                        <option>Bitcoin</option>
+                        <option>Ethereum</option>
+                        <option>Zcash</option>
+                        <option>Litecoin</option>
+                        <option>Binance</option>
+                        <option>Solana</option>
+                        <option>Tether</option>
+                    </select>
+                </div>
+                <div>
+                    <div class="mb-1.5 font-semibold">Amount</div>
+                    <div class="relative flex">
+                        <input type="text" placeholder="" class="form-input ltr:rounded-r-none ltr:border-r-0 rtl:rounded-l-none rtl:border-l-0" />
+                        <div class="dropdown">
+                            <div hlMenu offsetDistance="0">
+                                <button
+                                    type="button"
+                                    hlMenuButton
+                                    class="!flex items-center justify-center gap-1 rounded-none border bg-[#f1f2f3] px-3 py-2 font-semibold ltr:rounded-r-md rtl:rounded-l-md dark:border-[#253b5c] dark:bg-[#1b2e4b]"
+                                >
+                                    BTC
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="h-4 w-4">
+                                        <path d="M19 9L12 15L5 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                </button>
+                                <ul *hlMenuItems @toggleAnimation class="ltr:right-0 rtl:left-0">
+                                    <li>
+                                        <a href="javascript:;" *hlMenuItem="let menuItem">BTC</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;" *hlMenuItem="let menuItem">ETH</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;" *hlMenuItem="let menuItem">ZEC</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;" *hlMenuItem="let menuItem">LTC</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;" *hlMenuItem="let menuItem">BNB</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;" *hlMenuItem="let menuItem">SOL</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;" *hlMenuItem="let menuItem">USDT</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-primary self-end">Buy</button>
+            </div>
+            <!-- selected chart -->
+            <div class="flex-1 overflow-hidden px-4">
+                <apx-chart
+                    [series]="selectedCoinObj.series"
+                    [chart]="selectedBitCoinChart.chart"
+                    [stroke]="selectedBitCoinChart.stroke"
+                    [markers]="selectedBitCoinChart.markers"
+                    [colors]="selectedBitCoinChart.colors"
+                    [grid]="selectedBitCoinChart.grid"
+                    [tooltip]="selectedBitCoinChart.tooltip"
+                    [xaxis]="selectedBitCoinChart.xaxis"
+                    [yaxis]="selectedBitCoinChart.yaxis"
+                    [responsive]="selectedBitCoinChart.responsive"
+                >
+                    <!-- loader -->
+                    <div class="grid min-h-[411px] place-content-center bg-white-light/30 dark:bg-dark dark:bg-opacity-[0.08]">
+                        <span class="inline-flex h-5 w-5 animate-spin rounded-full border-2 border-black !border-l-transparent dark:border-white"></span>
+                    </div>
+                </apx-chart>
+            </div>
+        </div>
+    </div>
+</div>

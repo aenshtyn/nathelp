@@ -1,0 +1,108 @@
+﻿<div [ngClass]="{ 'dark text-white-dark': store.semidark }">
+    <nav class="sidebar fixed top-0 bottom-0 z-50 h-full min-h-screen w-[260px] shadow-[5px_0_25px_0_rgba(94,92,154,0.1)] transition-all duration-300">
+        <div class="h-full bg-white dark:bg-[#0e1726]">
+            <div class="flex items-center justify-between px-4 py-3">
+                <a routerLink="/" class="main-logo flex shrink-0 items-center">
+                    <img class="ml-[5px] w-40 flex-none" src="/assets/images/logo.png" alt="" />
+
+                </a>
+                <a href="javascript:;" class="collapse-icon flex h-8 w-8 items-center rounded-full transition duration-300 hover:bg-gray-500/10 hover:text-primary rtl:rotate-180 dark:text-white-light dark:hover:bg-dark-light/10" (click)="storeData.dispatch({ type: 'toggleSidebar'})">
+                    <svg class="m-auto h-5 w-5" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M13 19L7 12L13 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                        <path opacity="0.5" d="M16.9998 19L10.9998 12L16.9998 5" stroke="currentColor"
+                            stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </a>
+            </div>
+            <ng-scrollbar class="relative !h-[calc(100vh-80px)]" appearance="compact">
+                <ul class="relative space-y-0.5 p-4 py-0 font-semibold">
+
+                    <h2 class="-mx-4 mb-1 flex items-center bg-white-light/30 py-3 px-7 font-extrabold uppercase dark:bg-dark dark:bg-opacity-[0.08]">
+                        <svg class="hidden h-5 w-4 flex-none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                        </svg>
+                        <span>{{ ('dashboard' | translate) || '&nbsp;' }}</span>
+                    </h2>
+                    <li class="nav-item">
+                        <ul>
+                            <li class="nav-item">
+                                <a routerLink="/" class="group" routerLinkActive="active" (click)="toggleMobileMenu()">
+                                    <div class="flex items-center">
+
+                                        <img width="20" height="20" src="https://img.icons8.com/3d-fluency/20/control-panel.png" alt="control-panel" />
+
+                                        <span class="text-black ltr:pl-3 rtl:pr-3 dark:text-[#506690] dark:group-hover:text-white-dark">{{
+                                        'Executive' | translate }}</span>
+                                    </div>
+                                </a>
+                            </li>
+
+                        </ul>
+
+
+
+                        <h2 class="-mx-4 mb-1 flex items-center bg-white-light/30 py-3 px-7 font-extrabold uppercase dark:bg-dark dark:bg-opacity-[0.08]">
+                            <svg class="hidden h-5 w-4 flex-none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                            </svg>
+                            <span>{{ ('records' | translate) || '&nbsp;' }}</span>
+                        </h2>
+                        <li class="nav-item">
+                            <ul>
+
+                                <li class="nav-item">
+                                    <a routerLink="/records/teachers" class="group" routerLinkActive="active" (click)="toggleMobileMenu()">
+                                        <div class="flex items-center">
+
+                                            <img width="20" height="20" src="https://img.icons8.com/plasticine/20/teacher.png" alt="teacher" />
+
+                                            <span class="text-black ltr:pl-3 rtl:pr-3 dark:text-[#506690] dark:group-hover:text-white-dark">{{
+                                        'teachers' | translate }}</span>
+                                        </div>
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a routerLink="/records/students" class="group" routerLinkActive="active" (click)="toggleMobileMenu()">
+                                        <div class="flex items-center">
+                                            <img width="20" height="20" src="https://img.icons8.com/3d-fluency/20/student-male--v6.png" alt="student-male--v6" />
+
+
+
+                                            <span class="text-black ltr:pl-3 rtl:pr-3 dark:text-[#506690] dark:group-hover:text-white-dark">{{
+                                        'students' | translate }}</span>
+                                        </div>
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a routerLink="/records/schools" class="group" routerLinkActive="active" (click)="toggleMobileMenu()">
+                                        <div class="flex items-center">
+
+                                            <img width="20" height="20" src="https://img.icons8.com/color/20/school-building.png" alt="school-building" />
+
+                                            <span class="text-black ltr:pl-3 rtl:pr-3 dark:text-[#506690] dark:group-hover:text-white-dark">{{
+                                        'schools' | translate }}</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a routerLink="/records/cases" class="group" routerLinkActive="active" (click)="toggleMobileMenu()">
+                                        <div class="flex items-center">
+
+                                            <img width="20" height="20" src="https://img.icons8.com/external-flaticons-flat-flat-icons/20/external-notes-archaeology-flaticons-flat-flat-icons.png" alt="external-notes-archaeology-flaticons-flat-flat-icons" />
+
+
+                                            <span class="text-black ltr:pl-3 rtl:pr-3 dark:text-[#506690] dark:group-hover:text-white-dark">{{
+                                        'cases' | translate }}</span>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                </ul>
+            </ng-scrollbar>
+        </div>
+    </nav>
+</div>
