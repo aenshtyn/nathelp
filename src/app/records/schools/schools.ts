@@ -1,8 +1,10 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { ModalComponent } from 'angular-custom-modal';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { School } from 'src/app/models/school.model'
+import { SchoolService } from 'src/app/service/school.service';
 
 @Component({
     moduleId: module.id,
@@ -14,8 +16,15 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
         ]),
     ],
 })
-export class SchoolsComponent {
-    constructor(public fb: FormBuilder) {}
+export class SchoolsComponent implements OnInit{
+
+    schools?: School[]
+
+    constructor(private schoolService: SchoolService, public fb: FormBuilder) {}
+
+    // constructor(public fb: FormBuilder) {}
+
+
     displayType = 'list';
     @ViewChild('addSchoolModal') addSchoolModal!: ModalComponent;
     params!: FormGroup;
@@ -262,8 +271,23 @@ export class SchoolsComponent {
         });
     }
 
+    retrieveSchools(): void {
+        this.schoolService.getAll()
+        .subscribe({
+            next: (data: School[] | undefined) => {
+                this.schools = data;
+                console.log(data);
+            },
+
+            error:(e: any) => console.error(e)
+        });
+    }
+
+
+
     ngOnInit() {
         this.searchSchools();
+        this.retrieveSchools();
     }
 
     searchSchools() {

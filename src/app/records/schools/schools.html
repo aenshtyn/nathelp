@@ -98,7 +98,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <ng-container *ngFor="let school of filteredSchoolsList" key="school.id">
+                        <ng-container *ngFor="let school of schools" key="school.id">
                             <tr>
                                 <td>
                                     <div class="flex w-max items-center">
@@ -117,10 +117,10 @@
                                         <div>{{ school.name }}</div>
                                     </div>
                                 </td>
-                                <td>{{ school.school_code }}</td>
+                                <td>{{ school.location }}</td>
                                 <td>{{ school.level }}</td>
                                 <td>{{ school.email }}</td>
-                                <td>{{ school.phone }}</td>
+                                <td>{{ school.tel }}</td>
                                 <td class="whitespace-nowrap">{{ school.county }}</td>
                                 <td class="whitespace-nowrap">{{ school.student_population }}</td>
                                 <td class="whitespace-nowrap">{{ school.teacher_population }}</td>
