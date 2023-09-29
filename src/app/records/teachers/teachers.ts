@@ -1,8 +1,9 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import Swal from 'sweetalert2';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { ModalComponent } from 'angular-custom-modal';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { TeacherService } from 'src/app/service/teacher.service';
 
 @Component({
     moduleId: module.id,
@@ -14,55 +15,16 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
         ]),
     ],
 })
-export class TeachersComponent {
-    constructor(public fb: FormBuilder) {}
+export class TeachersComponent implements OnInit{
+
+    teachersList: any = []
+
+    constructor(public fb: FormBuilder, private teacherService: TeacherService) {}
     displayType = 'list';
     @ViewChild('addTeacherModal') addTeacherModal!: ModalComponent;
     params!: FormGroup;
     filteredTeachersList: any = [];
     searchUser = '';
-    teacherList = [
-
-        {
-            id: 1,
-            first_name: 'John',
-            last_name: 'Doe',
-            role: 'Guiding and Counseling Teacher',
-            school: 'Kilimani Primary School',
-            location: 'Nairobi',
-            phone: '712345678',
-            email: 'john@example.com',
-            dob: '01/10/1990',
-
-        },
-
-        {
-            id: 2,
-            first_name: 'Jane',
-            last_name: 'Doe',
-            role: 'Guiding and Counseling Teacher',
-            school: 'Kilimani Primary School',
-            location: 'Nairobi',
-            phone: '734567890',
-            email: 'jane@example.com',
-            dob: '07/30/1987',
-
-        },
-
-        {
-            id: 3,
-            first_name: 'Ann',
-            last_name: 'Shaw',
-            role: 'Guiding and Counseling Teacher',
-            school: 'Nairobi Primary School',
-            location: 'Nairobi',
-            phone: '012345678',
-            email: 'john@example.com',
-            dob: '05/15/1995',
-
-        },
-
-    ];
 
     initForm() {
         this.params = this.fb.group({
@@ -80,10 +42,23 @@ export class TeachersComponent {
 
     ngOnInit() {
         this.searchTeachers();
+        this.retrieveTeachers();
+    }
+
+    retrieveTeachers(): void {
+        this.teacherService.getAll()
+        .subscribe({
+            next: (data) => {
+            this.teachersList = data;
+            console.log(data);
+        },
+        error:(e) => console.error(e)
+        });
+
     }
 
     searchTeachers() {
-        this.filteredTeachersList = this.teacherList.filter((d) => d.first_name.toLowerCase().includes(this.searchUser.toLowerCase()));
+        this.filteredTeachersList = this.teachersList.filter((d: any) => d.first_name.toLowerCase().includes(this.searchUser.toLowerCase()));
     }
 
     editUser(user: any = null) {
@@ -132,7 +107,7 @@ export class TeachersComponent {
 
         if (this.params.value.id) {
             //update user
-            let user: any = this.teacherList.find((d) => d.id === this.params.value.id);
+            let user: any = this.teachersList.find((d: any) => d.id === this.params.value.id);
             user.first_name = this.params.value.first_name;
             user.last_name = this.params.value.last_name;
             user.email = this.params.value.email;
@@ -143,8 +118,8 @@ export class TeachersComponent {
             user.school = this.params.value.location;
         } else {
             //add user
-            let maxUserId = this.teacherList.length
-                ? this.teacherList.reduce((max, character) => (character.id > max ? character.id : max), this.teacherList[0].id)
+            let maxUserId = this.teachersList.length
+                ? this.teachersList.reduce((max: any, character: any) => (character.id > max ? character.id : max), this.teachersList[0].id)
                 : 0;
 
             let user = {
@@ -159,7 +134,7 @@ export class TeachersComponent {
                 dob: this.params.value.dob,
                 school: this.params.value.school,
             };
-            this.teacherList.splice(0, 0, user);
+            this.teachersList.splice(0, 0, user);
             this.searchTeachers();
         }
 
@@ -168,7 +143,7 @@ export class TeachersComponent {
     }
 
     deleteUser(user: any = null) {
-        this.teacherList = this.teacherList.filter((d) => d.id != user.id);
+        this.teachersList = this.teachersList.filter((d: any) => d.id != user.id);
         this.searchTeachers();
         this.showMessage('User has been deleted successfully.');
     }

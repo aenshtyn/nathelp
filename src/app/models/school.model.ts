@@ -13,5 +13,4 @@ export class School {
     student_population?: any;
     teacher_population?: any;
     path?: any;
-
 }

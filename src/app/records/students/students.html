@@ -86,15 +86,17 @@
                     <thead>
                         <tr>
                             <th>Name</th>
-                            <th>ID</th>
+
+                            <th>Gender</th>
+                            <th>Age</th>
+                            <th>Diability</th>
                             <th>School</th>
                             <th>Grade</th>
-                            <th>Date Joined</th>
                             <th class="!text-center">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <ng-container *ngFor="let student of filteredStudentsList" key="student.id">
+                        <ng-container *ngFor="let student of studentsList" key="student.id">
                             <tr>
                                 <td>
                                     <div class="flex w-max items-center">
@@ -113,10 +115,11 @@
                                         <div>{{ student.name }}</div>
                                     </div>
                                 </td>
-                                <td>{{ student.uid }}</td>
+                                <td>{{ student.gender }}</td>
+                                <td>{{ student.age }}</td>
+                                <td>{{ student.disability }}</td>
                                 <td>{{ student.school }}</td>
                                 <td>{{ student.grade }}</td>
-                                <td>{{ student.date_joined }}</td>
                                 <td>
                                     <div class="flex items-center justify-center gap-4">
                                         <button type="button" class="btn btn-sm btn-outline-primary" (click)="editStudent(student)">Edit</button>
@@ -141,8 +144,9 @@
                     </div>
                     <div class="relative -mt-10 px-6 pb-24">
                         <div class="rounded-md bg-white px-2 py-4 shadow-md dark:bg-gray-900">
-                            <div class="text-xl">{{ student.name }}</div>
-                            <div class="text-white-dark">{{ student.role }}</div>
+                            <div class="text-xl">{{ student.first_name }}</div>
+                            <div class="text-xl">{{ student.last_name }}</div>
+                            <div class="text-white-dark">{{ student.age }}</div>
                             <div class="mt-6 flex flex-wrap items-center justify-between gap-3">
                                 <div class="flex-auto">
                                     <div class="text-info">{{ student.posts }}</div>
@@ -230,25 +234,44 @@
         <ng-template #modalBody>
             <form [formGroup]="params" class="text-sm" (ngSubmit)="saveStudent()" ngNativeValidate>
                 <div class="mb-5">
-                    <label for="name">Name</label>
-                    <input id="name" type="text" placeholder="Enter Name" class="form-input" formControlName="name" />
+                    <label for="first_name">First Name</label>
+                    <input id="first_name" type="text" placeholder="Enter Name" class="form-input" formControlName="first_name" />
+                </div>
+                <div class="mb-5">
+                    <label for="last_name">Last Name</label>
+                    <input id="last_name" type="text" placeholder="Enter Name" class="form-input" formControlName="last_name" />
+                </div>
+                <div class="mb-5">
+                    <label for="dob">Date of Birth</label>
+                    <input id="dob" type="date" placeholder="Enter Date of Birth" class="form-input" formControlName="dob" />
+                </div>
+                <div class="mb-5">
+                    <label for="gender">Gender</label>
+                    <ng-select [items]="genderList" bindLabel="gender" bindValue="gender" [(ngModel)]="genderInput" [clearable]="false" placeholder="Select an option" class="custom-multiselect">
+                    </ng-select>
+                 </div>
+                <div class="mb-5">
+                    <label for="disabilit">Diability</label>
+                    <ng-select [items]="disabilityList" bindLabel="disability" bindValue="disability" [(ngModel)]="disabilityInput" [clearable]="false" placeholder="Select an option" class="custom-multiselect">
+                    </ng-select>
+                </div>
+                <div class="mb-5">
+                    <label for="school"> School </label>
+                    <ng-select [items]="schoolList" bindLabel="name" bindValue="name" [(ngModel)]="schoolInput" [clearable]="false" placeholder="Select an option" class="custom-multiselect">
+                    </ng-select>
                 </div>
                 <div class="mb-5">
                     <label for="grade">Grade</label>
                     <input id="grade" type="number" placeholder="Enter Grade" class="form-input" formControlName="grade" />
                 </div>
                 <div class="mb-5">
-                    <label for="uid">Unique Identifier</label>
-                    <input id="uid" type="number" placeholder="Enter UID" class="form-input" formControlName="uid" />
+                    <label for="stream">Stream</label>
+                    <input id="stream" type="text" placeholder="Enter stream" class="form-input" formControlName="stream" />
                 </div>
+
                 <div class="mb-5">
                     <label for="date_joined">Date joined</label>
                     <input id="date_joined" type="date" placeholder="Enter Date of Birth" class="form-input" formControlName="date_joined" />
-                </div>
-                <div class="mb-5">
-                    <label for="school"> School </label>
-                    <ng-select [items]="schoolList" bindLabel="name" bindValue="name" [(ngModel)]="schoolInput" [clearable]="false" placeholder="Select an option" class="custom-multiselect">
-                    </ng-select>
                 </div>
                 <div class="mt-8 flex items-center justify-end">
                     <button type="button" class="btn btn-outline-danger" (click)="addStudentModal.close()">Cancel</button>

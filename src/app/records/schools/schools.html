@@ -126,8 +126,8 @@
                                 <td class="whitespace-nowrap">{{ school.teacher_population }}</td>
                                 <td>
                                     <div class="flex items-center justify-center gap-4">
-                                        <button type="button" class="btn btn-sm btn-outline-primary" (click)="editSchool(school)">Edit</button>
-                                        <button type="button" class="btn btn-sm btn-outline-danger" (click)="deleteSchool(school)">Delete</button>
+                                        <button type="button" class="btn btn-sm btn-outline-primary" (click)="editSchool()">Edit</button>
+                                        <button type="button" class="btn btn-sm btn-outline-danger" (click)="deleteSchool()">Delete</button>
                                     </div>
                                 </td>
                             </tr>
@@ -219,8 +219,8 @@
                         </div>
                     </div>
                     <div class="absolute bottom-0 mt-6 flex w-full gap-4 p-6 ltr:left-0 rtl:right-0">
-                        <button type="button" class="btn btn-outline-primary w-1/2" (click)="editSchool(school)">Edit</button>
-                        <button type="button" class="btn btn-outline-danger w-1/2" (click)="deleteSchool(school)">Delete</button>
+                        <button type="button" class="btn btn-outline-primary w-1/2" (click)="editSchool()">Edit</button>
+                        <button type="button" class="btn btn-outline-danger w-1/2" (click)="deleteSchool()">Delete</button>
                     </div>
                 </div>
             </ng-container>
@@ -235,48 +235,49 @@
             </div>
         </ng-template>
         <ng-template #modalBody>
+
             <form [formGroup]="params" class="text-sm" (ngSubmit)="saveSchool()" ngNativeValidate>
 
                 <div class="mb-5">
                     <label for="name">Name</label>
-                    <input id="name" type="text" placeholder="Enter Name" class="form-input" formControlName="name" />
+                    <input id="name" type="text" placeholder="Enter Name" class="form-input" formControlName="name" required [(ngModel)]="school.name" />
                 </div>
                 <div class="mb-5">
                     <label for="email">Email</label>
-                    <input id="email" type="email" placeholder="Enter Email" class="form-input" formControlName="email" />
+                    <input id="email" type="email" placeholder="Enter Email" class="form-input" formControlName="email" required [(ngModel)]="school.email" />
                 </div>
                 <div class="mb-5">
 
                     <label for="phone">Phone Number</label>
-                    <input id="phone" type="tel" placeholder="(___) ___-___" class="form-input" />
+                    <input id="phone" type="tel" placeholder="(___) ___-___" class="form-input" required [(ngModel)]="school.tel" />
 
                 </div>
                 <div class="mb-5">
-                    <label for="school_code">School Code</label>
-                    <input id="school_code" type="text" placeholder="Enter school_code" class="form-input" formControlName="school_code" />
+                    <label for="school_code">Address</label>
+                    <input id="school_code" type="text" placeholder="Enter address" class="form-input" formControlName="address" required [(ngModel)]="school.address" />
                 </div>
 
                 <div class="mb-5">
                     <label for="county"> County </label>
-                    <ng-select [items]="countyList" bindLabel="name" bindValue="name" [(ngModel)]="countyInput" [clearable]="false" placeholder="Select an option" class="custom-multiselect">
+                    <ng-select [items]="countyList" bindLabel="name" bindValue="name" [(ngModel)]="countyInput" [clearable]="false" placeholder="Select an option" required [(ngModel)]="school.county" class="custom-multiselect">
                     </ng-select>
                 </div>
                 <div class="mb-5">
                     <label for="level"> Level </label>
-                    <ng-select [items]="levelList" bindLabel="name" bindValue="name" [(ngModel)]="levelInput" [clearable]="false" placeholder="Select an option" class="custom-multiselect">
+                    <ng-select [items]="levelList" bindLabel="name" bindValue="name" [(ngModel)]="levelInput" [clearable]="false" placeholder="Select an option" required [(ngModel)]="school.sub_county"class="custom-multiselect">
                     </ng-select>
                 </div>
                 <div class="mb-5">
                     <label for="student_population">Student Population</label>
-                    <input id="student_population" type="number" placeholder="Enter student population" class="form-input" formControlName="student_population" />
+                    <input id="student_population" type="number" placeholder="Enter student population" class="form-input" formControlName="student_population" required [(ngModel)]="school.student_population" />
                 </div>
                 <div class="mb-5">
                     <label for="teacher_population">Teacher Population</label>
-                    <input id="teacher_population" type="number" placeholder="Enter teacher population" class="form-input" formControlName="teacher_population" />
+                    <input id="teacher_population" type="number" placeholder="Enter teacher population" class="form-input" formControlName="teacher_population" required [(ngModel)]="school.teacher_population" />
                 </div>
                 <div class=" mt-8 flex items-center justify-end ">
                     <button type="button " class="btn btn-outline-danger " (click)="addSchoolModal.close() ">Cancel</button>
-                    <button type="submit " class="btn btn-primary ltr:ml-4 rtl:mr-4 ">
+                    <button type="submit " class="btn btn-primary ltr:ml-4 rtl:mr-4 " (click)="newSchool()">
                         {{ params.controls['id'].value ? 'Update' : 'Add' }}
                     </button>
                 </div>

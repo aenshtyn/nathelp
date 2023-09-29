@@ -3,7 +3,7 @@ import Swal from 'sweetalert2';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { ModalComponent } from 'angular-custom-modal';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { School } from 'src/app/models/school.model'
+import { School } from 'src/app/models/school.model';
 import { SchoolService } from 'src/app/service/school.service';
 
 @Component({
@@ -19,8 +19,29 @@ import { SchoolService } from 'src/app/service/school.service';
 export class SchoolsComponent implements OnInit{
 
     schools?: School[]
+    school: School = {
+        id: '',
+        name: '',
+        email: '',
+        tel: '',
+        address: '',
+        orientation: '',
+        level: '',
+        curriculum: '',
+        county: '',
+        sub_county: '',
+        location: '',
+        student_population: '',
+        teacher_population: '',
+        path: '',
+        }
+    submitted = false;
 
     constructor(private schoolService: SchoolService, public fb: FormBuilder) {}
+
+    // ngOnInit(): void {
+    //     throw new Error('Method not implemented.');
+    // }
 
     // constructor(public fb: FormBuilder) {}
 
@@ -257,19 +278,86 @@ export class SchoolsComponent implements OnInit{
 
     ];
 
-    initForm() {
-        this.params = this.fb.group({
-            id: [0],
-            name: ['', Validators.required],
-            school_code: ['', Validators.required],
-            email: ['', Validators.compose([Validators.required, Validators.email])],
-            county: [],
-            level: [],
-            student_population: ['', Validators.required],
-            teacher_population: ['', Validators.required],
-            phone: [ Validators.required],
+    saveSchool(): void{
+        const data = {
+            name: this.school.name,
+            email: this.school.email,
+            tel: this.school.tel,
+            address: this.school.address,
+            orientation: this.school.orientation,
+            level: this.school.level,
+            curriculum: this.school.curriculum,
+            county: this.school.county,
+            sub_county: this.school.sub_county,
+            location: this.school.location,
+            student_population: this.school.student_population,
+            teacher_population: this.school.teacher_population,
+            path: this.school.path,
+
+        };
+
+        this.schoolService.create(data)
+        .subscribe({
+            next: (res) => {
+                console.log(res);
+                this.submitted = true;
+            },
+            error: (e) => console.error(e)
         });
     }
+
+    newSchool(): void {
+        this.submitted = false;
+        this.school = {
+            name: '',
+            email: '',
+            tel: '',
+            address: '',
+            orientation: '',
+            level: '',
+            curriculum: '',
+            county: '',
+            sub_county: '',
+            location: '',
+            student_population: '',
+            teacher_population: '',
+            path: '',
+        };
+    }
+
+    // updateSchool(): void {
+    //     this,this.schoolService.update()
+    //     .subscribe({
+    //         next: (res) => {
+    //             console.log(res);
+    //         }
+    //         error: (e) => console.error(e)
+    //         });
+    // }
+
+    initForm () {
+
+    }
+
+    // initForm() {
+    //     this.params = this.fb.group({
+    //         id: [0],
+    //         name: ['', Validators.required],
+    //         email: ['', Validators.required],
+    //         tel: ['', Validators.required],
+    //         address: ['', Validators.required],
+    //         orientation: ['', Validators.required],
+    //         level: [],
+    //         curriculum: [],
+    //         county: [],
+    //         sub-county: [],
+    //         school_code: ['', Validators.required],
+    //         email: ['', Validators.compose([Validators.required, Validators.email])],
+    //         student_population: ['', Validators.required],
+    //         teacher_population: ['', Validators.required],
+    //         phone: [ Validators.required],
+    //     });
+    // }
 
     retrieveSchools(): void {
         this.schoolService.getAll()
@@ -282,7 +370,6 @@ export class SchoolsComponent implements OnInit{
             error:(e: any) => console.error(e)
         });
     }
-
 
 
     ngOnInit() {
@@ -313,97 +400,117 @@ export class SchoolsComponent implements OnInit{
     }
 
 
-    saveSchool() {
-        if (this.params.controls['name'].errors) {
-            this.showMessage('Name is required.', 'error');
-            return;
-        }
-        if (this.params.controls['school_code'].errors) {
-            this.showMessage('Code is required.', 'error');
-            return;
-        }
-        if (this.params.controls['email'].errors) {
-            this.showMessage('Email is required.', 'error');
-            return;
-        }
-        if (this.params.controls['phone'].errors) {
-            this.showMessage('Phone is required.', 'error');
-            return;
-        }
-        if (this.params.controls['county'].errors) {
-            this.showMessage('Please select County.', 'error');
-            return;
-        }
-        if (this.params.controls['level'].errors) {
-            this.showMessage('Please select level.', 'error');
-            return;
-        }
-        if (this.params.controls['student_population'].errors) {
-            this.showMessage('Please enter student population.', 'error');
-            return;
-        }
-        if (this.params.controls['teacher_population'].errors) {
-            this.showMessage('Please enter teacher population.', 'error');
-            return;
-        }
+    // saveSchool() {
+    //     if (this.params.controls['name'].errors) {
+    //         this.showMessage('Name is required.', 'error');
+    //         return;
+    //     }
+    //     if (this.params.controls['school_code'].errors) {
+    //         this.showMessage('Code is required.', 'error');
+    //         return;
+    //     }
+    //     if (this.params.controls['email'].errors) {
+    //         this.showMessage('Email is required.', 'error');
+    //         return;
+    //     }
+    //     if (this.params.controls['phone'].errors) {
+    //         this.showMessage('Phone is required.', 'error');
+    //         return;
+    //     }
+    //     if (this.params.controls['county'].errors) {
+    //         this.showMessage('Please select County.', 'error');
+    //         return;
+    //     }
+    //     if (this.params.controls['level'].errors) {
+    //         this.showMessage('Please select level.', 'error');
+    //         return;
+    //     }
+    //     if (this.params.controls['student_population'].errors) {
+    //         this.showMessage('Please enter student population.', 'error');
+    //         return;
+    //     }
+    //     if (this.params.controls['teacher_population'].errors) {
+    //         this.showMessage('Please enter teacher population.', 'error');
+    //         return;
+    //     }
 
 
-        if (this.params.value.id) {
-            //update school
-            let school: any = this.schoolList.find((d) => d.id === this.params.value.id);
-            school.name = this.params.value.name;
-            school.school_code = this.params.value.school_code;
-            school.email = this.params.value.email;
-            school.county = this.params.value.county;
-            school.phone = this.params.value.phone;
-            school.level = this.params.value.level;
-            school.student_population = this.params.value.student_population;
-            school.teacher_population = this.params.value.teacher_population;
+    //     if (this.params.value.id) {
+    //         //update school
+    //         let school: any = this.schoolList.find((d) => d.id === this.params.value.id);
+    //         school.name = this.params.value.name;
+    //         school.school_code = this.params.value.school_code;
+    //         school.email = this.params.value.email;
+    //         school.county = this.params.value.county;
+    //         school.phone = this.params.value.phone;
+    //         school.level = this.params.value.level;
+    //         school.student_population = this.params.value.student_population;
+    //         school.teacher_population = this.params.value.teacher_population;
 
-        } else {
-            //add school
-            let maxSchoolId = this.schoolList.length
-                ? this.schoolList.reduce((max, character) => (character.id > max ? character.id : max), this.schoolList[0].id)
-                : 0;
+    //     } else {
+    //         //add school
+    //         let maxSchoolId = this.schoolList.length
+    //             ? this.schoolList.reduce((max, character) => (character.id > max ? character.id : max), this.schoolList[0].id)
+    //             : 0;
 
-            let school = {
-                id: maxSchoolId + 1,
-                name: this.params.value.name,
-                school_code: this.params.value.school_code,
-                email: this.params.value.email,
-                level: this.params.value.level,
-                phone: this.params.value.phone,
-                county: this.params.value.county,
-               student_population : this.params.value.student_population,
-              teacher_population : this.params.value.teacher_population,
+    //         let school = {
+    //             id: maxSchoolId + 1,
+    //             name: this.params.value.name,
+    //             school_code: this.params.value.school_code,
+    //             email: this.params.value.email,
+    //             level: this.params.value.level,
+    //             phone: this.params.value.phone,
+    //             county: this.params.value.county,
+    //            student_population : this.params.value.student_population,
+    //           teacher_population : this.params.value.teacher_population,
 
-            };
-            this.schoolList.splice(0, 0, school);
-            this.searchSchools();
-        }
+    //         };
 
-        this.showMessage('School has been saved successfully.');
-        this.addSchoolModal.close();
+    //         this.schoolService.create(school)
+    //         .subscribe({
+    //             next: (res: any) => {
+    //                 console.log(res);
+    //                 this.submitted = true;
+    //             },
+    //             error: (e) => console.error(e)
+
+    //         })
+    //         this.schoolList.splice(0, 0, school);
+    //         this.searchSchools();
+    //     }
+
+    //     // this.showMessage('School has been saved successfully.');
+    //     this.addSchoolModal.close();
+    // }
+
+
+
+    // deleteSchool(school: any = null) {
+    //     this.schoolList = this.schoolList.filter((d) => d.id != school.id);
+    //     this.searchSchools();
+    //     // this.showMessage('School has been deleted successfully.');
+    // }
+    deleteSchool(): void {
+        this.schoolService.delete(this.school.id)
+        .subscribe({
+            next: (res) => {
+                console.log(res);
+            }
+        })
     }
 
-    deleteSchool(school: any = null) {
-        this.schoolList = this.schoolList.filter((d) => d.id != school.id);
-        this.searchSchools();
-        this.showMessage('School has been deleted successfully.');
-    }
-
-    showMessage(msg = '', type = 'success') {
-        const toast: any = Swal.mixin({
-            toast: true,
-            position: 'top',
-            showConfirmButton: false,
-            timer: 3000,
-            customClass: { container: 'toast' },
-        });
-        toast.fire({
-            icon: type,
-            title: msg,
-            padding: '10px 20px',
-        });
-    }
+    // showMessage(msg = '', type = 'success') {
+    //     const toast: any = Swal.mixin({
+    //         toast: true,
+    //         position: 'top',
+    //         showConfirmButton: false,
+    //         timer: 3000,
+    //         customClass: { container: 'toast' },
+    //     });
+    //     toast.fire({
+    //         icon: type,
+    //         title: msg,
+    //         padding: '10px 20px',
+    //     });
+    // }
 }
