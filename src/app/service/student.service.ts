@@ -26,11 +26,11 @@ export class StudentService {
       }
 
     update(id: any, data: any): Observable<any> {
-        return this.http.put('${baseUrl}/${id}', data);
+        return this.http.put('${baseUrl}/${id}/', data);
     }
 
     delete(id: any): Observable<any> {
-        return this.http.delete('${baseUrl}/${id}');
+        return this.http.delete('/${baseUrl}/${id}/');
     }
 
  }
