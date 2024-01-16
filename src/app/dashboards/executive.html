@@ -15,8 +15,8 @@
                     <div class="text-md font-semibold ltr:mr-1 rtl:ml-1">Student Helpers</div>
                 </div>
                 <div class="mt-5 flex items-center">
-                    <div class="text-3xl font-bold ltr:mr-3 rtl:ml-3">120</div>
-                    <div class="badge bg-white/30">+ 4.35%</div>
+                    <div class="text-3xl font-bold ltr:mr-3 rtl:ml-3">{{ analyticsData.total_helpers}}</div>
+                    <div class="badge bg-white/30">{{ analyticsData.week_on_week_students_change }} %</div>
                 </div>
                 <div class="mt-5 flex items-center font-semibold">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 shrink-0 ltr:mr-2 rtl:ml-2">
@@ -31,7 +31,7 @@
                             stroke="currentColor"
                             stroke-width="1.5"
                         ></path>
-                    </svg> Last Week 115
+                    </svg> Last Week {{ analyticsData.previous_week_student_count }}
                 </div>
             </div>
 
@@ -42,8 +42,8 @@
 
                 </div>
                 <div class="mt-5 flex items-center">
-                    <div class="text-3xl font-bold ltr:mr-3 rtl:ml-3">563</div>
-                    <div class="badge bg-white/30">+ 10.61%</div>
+                    <div class="text-3xl font-bold ltr:mr-3 rtl:ml-3">{{ analyticsData.total_cases}}</div>
+                    <div class="badge bg-white/30">{{ analyticsData.week_on_week_cases_change }} %</div>
                 </div>
                 <div class="mt-5 flex items-center font-semibold">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 shrink-0 ltr:mr-2 rtl:ml-2">
@@ -58,7 +58,7 @@
                             stroke="currentColor"
                             stroke-width="1.5"
                         ></path>
-                    </svg> Last Week 509
+                    </svg> Last Week {{ analyticsData.previous_week_cases_count }}
                 </div>
             </div>
 
@@ -68,8 +68,8 @@
                     <div class="text-md font-semibold ltr:mr-1 rtl:ml-1">Schools in Programme</div>
                 </div>
                 <div class="mt-5 flex items-center">
-                    <div class="text-3xl font-bold ltr:mr-3 rtl:ml-3">5</div>
-                    <div class="badge bg-white/30">+ 0%</div>
+                    <div class="text-3xl font-bold ltr:mr-3 rtl:ml-3">{{ analyticsData.total_schools}}</div>
+                    <div class="badge bg-white/30">{{ analyticsData.week_on_week_schools_change }} %</div>
                 </div>
                 <div class="mt-5 flex items-center font-semibold">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 shrink-0 ltr:mr-2 rtl:ml-2">
@@ -84,19 +84,19 @@
                             stroke="currentColor"
                             stroke-width="1.5"
                         ></path>
-                    </svg> Last Week 5
-                </div>
+                    </svg> Last Week {{ analyticsData.previous_week_schools_count }}
+            </div>
             </div>
 
             <!-- Bounce Rate -->
             <div class="panel bg-gradient-to-r from-fuchsia-500 to-fuchsia-400">
                 <div class="flex justify-between">
-                    <div class="text-md font-semibold ltr:mr-1 rtl:ml-1">Cases Solved</div>
+                    <div class="text-md font-semibold ltr:mr-1 rtl:ml-1">Teachers Involved</div>
 
                 </div>
                 <div class="mt-5 flex items-center">
-                    <div class="text-3xl font-bold ltr:mr-3 rtl:ml-3">540</div>
-                    <div class="badge bg-white/30">+ 7.35%</div>
+                    <div class="text-3xl font-bold ltr:mr-3 rtl:ml-3">{{ analyticsData.total_teachers}}</div>
+                    <div class="badge bg-white/30">{{ analyticsData.week_on_week_teachers_change }} %</div>
                 </div>
                 <div class="mt-5 flex items-center font-semibold">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 shrink-0 ltr:mr-2 rtl:ml-2">
@@ -111,7 +111,7 @@
                             stroke="currentColor"
                             stroke-width="1.5"
                         ></path>
-                    </svg> Last Week 503
+                    </svg> Last Week {{ analyticsData.previous_week_teachers_count }}
                 </div>
             </div>
         </div>

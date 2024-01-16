@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { animate, style, transition, trigger } from '@angular/animations';
+import { AnalyticsService } from '../service/analytics.service';
 
 @Component({
     moduleId: module.id,
@@ -13,6 +14,7 @@ import { animate, style, transition, trigger } from '@angular/animations';
     ],
 })
 export class ExecutiveComponent {
+    analyticsData: any;
     store: any;
     revenueChart: any;
     salesByCategory: any;
@@ -26,9 +28,15 @@ export class ExecutiveComponent {
     referral: any;
     engagement: any;
     isLoading = true;
-    constructor(public storeData: Store<any>) {
+    constructor(public storeData: Store<any>, private analyticsService: AnalyticsService) {
         this.initStore();
         this.isLoading = false;
+    }
+
+    ngOnInit(): void {
+        this.analyticsService.getAnalyticsData().subscribe((data) => {
+            this.analyticsData = data;
+        })
     }
 
     async initStore() {
