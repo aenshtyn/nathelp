@@ -38,6 +38,7 @@ import { CasesComponent } from './cases/cases';
 import { StudentsComponent } from './students/students';
 import { SchoolsComponent } from './schools/schools';
 import { TeachersComponent } from './teachers/teachers';
+import { ConditionsComponent } from './conditions/conditions';
 
 
 const routes: Routes = [
@@ -47,6 +48,7 @@ const routes: Routes = [
     { path: 'records/cases', component: CasesComponent, title: 'Cases | CBT - Natural Helpers'},
     { path: 'records/schools', component: SchoolsComponent, title: 'Schools | CBT - Natural Helpers'},
     { path: 'records/teachers', component: TeachersComponent, title: 'Teachers | CBT - Natural Helpers'},
+    { path: 'records/conditions', component: ConditionsComponent, title: 'Teachers | CBT - Natural Helpers'},
 
 ];
 
@@ -75,6 +77,7 @@ const routes: Routes = [
         StudentsComponent,
         SchoolsComponent,
         TeachersComponent,
+        ConditionsComponent,
     ],
 })
 export class RecordsModule {}

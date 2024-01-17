@@ -1,24 +1,24 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Teacher } from '../models/teacher.model';
+import { Condition } from '../models/condition.model';
 
-const baseUrl = 'http://localhost:8000/api/teachers';
+const baseUrl = 'http://localhost:8000/api/conditions';
 
 @Injectable({
     providedIn: 'root'
   })
 
-export class TeacherService {
+export class ConditionService {
 
     constructor(private http: HttpClient) {}
 
-    getAll(): Observable<Teacher[]> {
-        return this.http.get<Teacher[]>(baseUrl);
+    getAll(): Observable<Condition[]> {
+        return this.http.get<Condition[]>(baseUrl);
     }
 
-    get(id: any): Observable<Teacher> {
-        return this.http.get('${baseUrl}/${id}');
+    get(id: any): Observable<Condition> {
+        return this.http.get(`${baseUrl}/${id}`);
     }
 
     create(data: any): Observable<any> {
@@ -26,11 +26,11 @@ export class TeacherService {
       }
 
     update(id: any, data: any): Observable<any> {
-        return this.http.put('${baseUrl}/${id}', data);
+        return this.http.put(`${baseUrl}/${id}`, data);
     }
 
     delete(id: any): Observable<any> {
-        return this.http.delete('${baseUrl}/${id}');
+        return this.http.delete(`${baseUrl}/${id}`);
     }
 
  }
