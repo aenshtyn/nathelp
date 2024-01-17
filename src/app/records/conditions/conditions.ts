@@ -105,31 +105,7 @@ export class ConditionsComponent {
 
         this.addConditionModal.close();
     }
-
-    //     if (this.params.value.id) {
-    //         //update condition
-    //         let condition: any = this.conditionsList.find((d) => d.id === this.params.value.id);
-    //         condition.name = this.params.value.name;
-    //         condition.description = this.params.value.description;
-    //     } else {
-    //         //add condition
-    //         let maxConditionId = this.conditionsList.length
-    //             ? this.conditionsList.reduce((max, character) => (character.id > max ? character.id : max), this.conditionsList[0].id)
-    //             : 0;
-
-    //         let condition = {
-    //             id: maxConditionId + 1,
-    //             name: this.params.value.name,
-    //             description: this.params.value.description,
-    //         };
-    //         this.conditionsList.splice(0, 0, condition);
-    //         this.searchConditions();
-    //     }
-
-    //     this.showMessage('Condition has been saved successfully.');
-    //     this.addConditionModal.close();
-    // }
-
+    
     deleteCondition(condition: any = null) {
         if(!condition) {
             return;
@@ -146,12 +122,6 @@ export class ConditionsComponent {
 
         );
     }
-
-
-    //     this.conditionsList = this.conditionsList.filter((d) => d.id != condition.id);
-    //     this.searchConditions();
-    //     this.showMessage('Condition has been deleted successfully.');
-    // }
 
     showMessage(msg = '', type = 'success') {
         const toast: any = Swal.mixin({
