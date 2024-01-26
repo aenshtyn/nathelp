@@ -39,16 +39,17 @@ import { StudentsComponent } from './students/students';
 import { SchoolsComponent } from './schools/schools';
 import { TeachersComponent } from './teachers/teachers';
 import { ConditionsComponent } from './conditions/conditions';
+import { AuthGuard } from '../service/auth.guard';
 
 
 const routes: Routes = [
 
 
-    { path: 'records/students', component: StudentsComponent, title: 'Students | CBT - Natural Helpers'},
-    { path: 'records/cases', component: CasesComponent, title: 'Cases | CBT - Natural Helpers'},
-    { path: 'records/schools', component: SchoolsComponent, title: 'Schools | CBT - Natural Helpers'},
-    { path: 'records/teachers', component: TeachersComponent, title: 'Teachers | CBT - Natural Helpers'},
-    { path: 'records/conditions', component: ConditionsComponent, title: 'Teachers | CBT - Natural Helpers'},
+    { path: 'records/students', component: StudentsComponent, canActivate: [AuthGuard], title: 'Students | CBT - Natural Helpers'},
+    { path: 'records/cases', component: CasesComponent, canActivate: [AuthGuard], title: 'Cases | CBT - Natural Helpers'},
+    { path: 'records/schools', component: SchoolsComponent, canActivate: [AuthGuard], title: 'Schools | CBT - Natural Helpers'},
+    { path: 'records/teachers', component: TeachersComponent, canActivate: [AuthGuard], title: 'Teachers | CBT - Natural Helpers'},
+    { path: 'records/conditions', component: ConditionsComponent, canActivate: [AuthGuard],title: 'Teachers | CBT - Natural Helpers'},
 
 ];
 

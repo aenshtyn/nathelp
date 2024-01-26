@@ -9,6 +9,7 @@ export class School {
     curriculum?: string;
     county?: string;
     sub_county?: string;
+    school_code?: any;
     location?: string;
     student_population?: any;
     teacher_population?: any;

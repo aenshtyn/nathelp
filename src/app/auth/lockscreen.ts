@@ -3,8 +3,8 @@ import { Router } from '@angular/router';
 
 @Component({
     moduleId: module.id,
-    templateUrl: './boxed-password-reset.html',
+    templateUrl: './lockscreen.html',
 })
-export class BoxedPasswordResetComponent {
+export class LockscreenComponent {
     constructor(public router: Router) {}
 }

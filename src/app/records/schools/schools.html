@@ -19,53 +19,7 @@
                         Add School
                     </button>
                 </div>
-                <div>
-                    <button type="button" class="btn btn-outline-primary p-2" [ngClass]="{ 'bg-primary text-white': displayType === 'list' }" (click)="displayType = 'list'">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5">
-                            <path d="M2 5.5L3.21429 7L7.5 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                            <path
-                                opacity="0.5"
-                                d="M2 12.5L3.21429 14L7.5 10"
-                                stroke="currentColor"
-                                stroke-width="1.5"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                            />
-                            <path d="M2 19.5L3.21429 21L7.5 17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                            <path d="M22 19L12 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
-                            <path opacity="0.5" d="M22 12L12 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
-                            <path d="M22 5L12 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
-                        </svg>
-                    </button>
-                </div>
-                <div>
-                    <button type="button" class="btn btn-outline-primary p-2" [ngClass]="{ 'bg-primary text-white': displayType === 'grid' }" (click)="displayType = 'grid'">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5">
-                            <path
-                                opacity="0.5"
-                                d="M2.5 6.5C2.5 4.61438 2.5 3.67157 3.08579 3.08579C3.67157 2.5 4.61438 2.5 6.5 2.5C8.38562 2.5 9.32843 2.5 9.91421 3.08579C10.5 3.67157 10.5 4.61438 10.5 6.5C10.5 8.38562 10.5 9.32843 9.91421 9.91421C9.32843 10.5 8.38562 10.5 6.5 10.5C4.61438 10.5 3.67157 10.5 3.08579 9.91421C2.5 9.32843 2.5 8.38562 2.5 6.5Z"
-                                stroke="currentColor"
-                                stroke-width="1.5"
-                            />
-                            <path
-                                opacity="0.5"
-                                d="M13.5 17.5C13.5 15.6144 13.5 14.6716 14.0858 14.0858C14.6716 13.5 15.6144 13.5 17.5 13.5C19.3856 13.5 20.3284 13.5 20.9142 14.0858C21.5 14.6716 21.5 15.6144 21.5 17.5C21.5 19.3856 21.5 20.3284 20.9142 20.9142C20.3284 21.5 19.3856 21.5 17.5 21.5C15.6144 21.5 14.6716 21.5 14.0858 20.9142C13.5 20.3284 13.5 19.3856 13.5 17.5Z"
-                                stroke="currentColor"
-                                stroke-width="1.5"
-                            />
-                            <path
-                                d="M2.5 17.5C2.5 15.6144 2.5 14.6716 3.08579 14.0858C3.67157 13.5 4.61438 13.5 6.5 13.5C8.38562 13.5 9.32843 13.5 9.91421 14.0858C10.5 14.6716 10.5 15.6144 10.5 17.5C10.5 19.3856 10.5 20.3284 9.91421 20.9142C9.32843 21.5 8.38562 21.5 6.5 21.5C4.61438 21.5 3.67157 21.5 3.08579 20.9142C2.5 20.3284 2.5 19.3856 2.5 17.5Z"
-                                stroke="currentColor"
-                                stroke-width="1.5"
-                            />
-                            <path
-                                d="M13.5 6.5C13.5 4.61438 13.5 3.67157 14.0858 3.08579C14.6716 2.5 15.6144 2.5 17.5 2.5C19.3856 2.5 20.3284 2.5 20.9142 3.08579C21.5 3.67157 21.5 4.61438 21.5 6.5C21.5 8.38562 21.5 9.32843 20.9142 9.91421C20.3284 10.5 19.3856 10.5 17.5 10.5C15.6144 10.5 14.6716 10.5 14.0858 9.91421C13.5 9.32843 13.5 8.38562 13.5 6.5Z"
-                                stroke="currentColor"
-                                stroke-width="1.5"
-                            />
-                        </svg>
-                    </button>
-                </div>
+
             </div>
 
             <div class="relative">
@@ -98,7 +52,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <ng-container *ngFor="let school of schools" key="school.id">
+                        <ng-container *ngFor="let school of filteredSchoolsList" key="school.id">
                             <tr>
                                 <td>
                                     <div class="flex w-max items-center">
@@ -126,8 +80,8 @@
                                 <td class="whitespace-nowrap">{{ school.teacher_population }}</td>
                                 <td>
                                     <div class="flex items-center justify-center gap-4">
-                                        <button type="button" class="btn btn-sm btn-outline-primary" (click)="editSchool()">Edit</button>
-                                        <button type="button" class="btn btn-sm btn-outline-danger" (click)="deleteSchool()">Delete</button>
+                                        <button type="button" class="btn btn-sm btn-outline-primary" (click)="editSchool(school)">Edit</button>
+                                        <button type="button" class="btn btn-sm btn-outline-danger" (click)="deleteSchool(school)">Delete</button>
                                     </div>
                                 </td>
                             </tr>
@@ -137,95 +91,6 @@
             </div>
         </ng-container>
     </div>
-    <ng-container *ngIf="displayType === 'grid'">
-        <div class="grid w-full grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
-            <ng-container *ngFor="let school of filteredSchoolsList" key="school.id">
-                <div class="relative overflow-hidden rounded-md bg-white text-center shadow dark:bg-[#1c232f]">
-                    <div class="rounded-t-md bg-white/40 bg-[url('/assets/images/notification-bg.png')] bg-cover bg-center p-6 pb-0">
-                        <ng-container *ngIf="school.path">
-                            <img class="mx-auto max-h-40 w-4/5 object-contain" [src]="'/assets/images/' + school.path" />
-                        </ng-container>
-                    </div>
-                    <div class="relative -mt-10 px-6 pb-24">
-                        <div class="rounded-md bg-white px-2 py-4 shadow-md dark:bg-gray-900">
-                            <div class="text-xl">{{ school.name }}</div>
-                            <div class="text-white-dark">{{ school.role }}</div>
-                            <div class="mt-6 flex flex-wrap items-center justify-between gap-3">
-                                <div class="flex-auto">
-                                    <div class="text-info">{{ school.posts }}</div>
-                                    <div>Posts</div>
-                                </div>
-                                <div class="flex-auto">
-                                    <div class="text-info">{{ school.following }}</div>
-                                    <div>Following</div>
-                                </div>
-                                <div class="flex-auto">
-                                    <div class="text-info">{{ school.followers }}</div>
-                                    <div>Followers</div>
-                                </div>
-                            </div>
-                            <div class="mt-4">
-                                <ul class="flex items-center justify-center space-x-4 rtl:space-x-reverse">
-                                    <li>
-                                        <a href="javascript:;" class="btn btn-outline-primary h-7 w-7 rounded-full p-0">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4">
-                                                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
-                                            </svg>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:;" class="btn btn-outline-primary h-7 w-7 rounded-full p-0">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4">
-                                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-                                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-                                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-                                            </svg>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:;" class="btn btn-outline-primary h-7 w-7 rounded-full p-0">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4">
-                                                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
-                                                <rect x="2" y="9" width="4" height="12"></rect>
-                                                <circle cx="4" cy="4" r="2"></circle>
-                                            </svg>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:;" class="btn btn-outline-primary h-7 w-7 rounded-full p-0">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4">
-                                                <path
-                                                    d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"
-                                                ></path>
-                                            </svg>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="mt-6 grid grid-cols-1 gap-4 ltr:text-left rtl:text-right">
-                            <div class="flex items-center">
-                                <div class="flex-none ltr:mr-2 rtl:ml-2">Email :</div>
-                                <div class="truncate text-white-dark">{{ school.email }}</div>
-                            </div>
-                            <div class="flex items-center">
-                                <div class="flex-none ltr:mr-2 rtl:ml-2">Phone :</div>
-                                <div class="text-white-dark">{{ school.phone }}</div>
-                            </div>
-                            <div class="flex items-center">
-                                <div class="flex-none ltr:mr-2 rtl:ml-2">Address :</div>
-                                <div class="text-white-dark">{{ school.location }}</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="absolute bottom-0 mt-6 flex w-full gap-4 p-6 ltr:left-0 rtl:right-0">
-                        <button type="button" class="btn btn-outline-primary w-1/2" (click)="editSchool()">Edit</button>
-                        <button type="button" class="btn btn-outline-danger w-1/2" (click)="deleteSchool()">Delete</button>
-                    </div>
-                </div>
-            </ng-container>
-        </div>
-    </ng-container>
 
     <!-- add school modal -->
     <modal #addSchoolModal class="no-footer">
@@ -240,44 +105,45 @@
 
                 <div class="mb-5">
                     <label for="name">Name</label>
-                    <input id="name" type="text" placeholder="Enter Name" class="form-input" formControlName="name" required [(ngModel)]="school.name" />
+                    <input id="name" type="text" placeholder="Enter Name" class="form-input" formControlName="name" />
                 </div>
                 <div class="mb-5">
                     <label for="email">Email</label>
-                    <input id="email" type="email" placeholder="Enter Email" class="form-input" formControlName="email" required [(ngModel)]="school.email" />
+                    <input id="email" type="email" placeholder="Enter Email" class="form-input" formControlName="email" />
                 </div>
                 <div class="mb-5">
 
                     <label for="phone">Phone Number</label>
-                    <input id="phone" type="tel" placeholder="(___) ___-___" class="form-input" required [(ngModel)]="school.tel" />
+                    <input id="phone" type="tel" placeholder="(___) ___-___" class="form-input" formControlName="tel" />
 
                 </div>
                 <div class="mb-5">
-                    <label for="school_code">Address</label>
-                    <input id="school_code" type="text" placeholder="Enter address" class="form-input" formControlName="address" required [(ngModel)]="school.address" />
+                    <label for="address">Address</label>
+                    <input id="address" type="text" placeholder="Enter address" class="form-input" formControlName="address" />
                 </div>
+
 
                 <div class="mb-5">
                     <label for="county"> County </label>
-                    <ng-select [items]="countyList" bindLabel="name" bindValue="name" [(ngModel)]="countyInput" [clearable]="false" placeholder="Select an option" required [(ngModel)]="school.county" class="custom-multiselect">
+                    <ng-select [items]="countyList" bindLabel="name" bindValue="name" [(ngModel)]="countyInput" [clearable]="false" placeholder="Select an option" class="custom-multiselect" formControlName="county">
                     </ng-select>
                 </div>
                 <div class="mb-5">
                     <label for="level"> Level </label>
-                    <ng-select [items]="levelList" bindLabel="name" bindValue="name" [(ngModel)]="levelInput" [clearable]="false" placeholder="Select an option" required [(ngModel)]="school.sub_county"class="custom-multiselect">
+                    <ng-select [items]="levelList" bindLabel="name" bindValue="name" [(ngModel)]="levelInput" [clearable]="false" placeholder="Select an option" class="custom-multiselect" formControlName="level">
                     </ng-select>
                 </div>
                 <div class="mb-5">
                     <label for="student_population">Student Population</label>
-                    <input id="student_population" type="number" placeholder="Enter student population" class="form-input" formControlName="student_population" required [(ngModel)]="school.student_population" />
+                    <input id="student_population" type="number" placeholder="Enter student population" class="form-input" formControlName="student_population"/>
                 </div>
                 <div class="mb-5">
                     <label for="teacher_population">Teacher Population</label>
-                    <input id="teacher_population" type="number" placeholder="Enter teacher population" class="form-input" formControlName="teacher_population" required [(ngModel)]="school.teacher_population" />
+                    <input id="teacher_population" type="number" placeholder="Enter teacher population" class="form-input" formControlName="teacher_population" />
                 </div>
                 <div class=" mt-8 flex items-center justify-end ">
                     <button type="button " class="btn btn-outline-danger " (click)="addSchoolModal.close() ">Cancel</button>
-                    <button type="submit " class="btn btn-primary ltr:ml-4 rtl:mr-4 " (click)="newSchool()">
+                    <button type="submit " class="btn btn-primary ltr:ml-4 rtl:mr-4 ">
                         {{ params.controls['id'].value ? 'Update' : 'Add' }}
                     </button>
                 </div>

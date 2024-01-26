@@ -3,8 +3,8 @@ import { Router } from '@angular/router';
 
 @Component({
     moduleId: module.id,
-    templateUrl: './boxed-signin.html',
+    templateUrl: './register.html',
 })
-export class BoxedSigninComponent {
+export class RegisterComponent {
     constructor(public router: Router) {}
 }

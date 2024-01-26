@@ -12,23 +12,21 @@
         <div class="max-w-[480px] p-5 md:p-10">
             <h2 class="mb-3 text-3xl font-bold">Sign In</h2>
             <p class="mb-7">Enter your email and password to login</p>
-            <form class="space-y-5">
+
+            <form class="space-y-5" (ngSubmit)="onSubmit()">
                 <div>
-                    <label for="email">Email</label>
-                    <input id="email" type="email" class="form-input" placeholder="Enter Email" />
+                  <label for="email">Email</label>
+                  <input id="email" type="email" class="form-input" placeholder="Enter Email" [(ngModel)]="form.email" name="email" required />
                 </div>
                 <div>
-                    <label for="password">Password</label>
-                    <input id="password" type="password" class="form-input" placeholder="Enter Password" />
+                  <label for="password">Password</label>
+                  <input id="password" type="password" class="form-input" placeholder="Enter Password" [(ngModel)]="form.password" name="password" required />
                 </div>
-                <div>
-                    <label class="cursor-pointer">
-                        <input type="checkbox" class="form-checkbox" />
-                        <span class="text-white-dark">Remember me</span>
-                    </label>
-                </div>
-                <button type="button" class="btn btn-primary w-full" (click)="router.navigate(['/'])">SIGN IN</button>
-            </form>
+                <button type="submit" class="btn btn-primary w-full">SIGN IN</button>
+              </form>
+
+
+
             <div
                 class="relative my-7 h-5 text-center before:absolute before:inset-0 before:m-auto before:h-[1px] before:w-full before:bg-[#ebedf2] dark:before:bg-[#253b5c]"
             >

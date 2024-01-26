@@ -25,11 +25,13 @@ export const routes: Routes = [
 
             // users
             { path: '', loadChildren: () => import('./users/user.module').then((d) => d.UsersModule) },
+            { path: '', loadChildren: () => import('./auth/auth.module').then((d) => d.AuthModule) },
 
 
             // pages
             { path: 'pages/knowledge-base', component: KnowledgeBaseComponent, title: 'Knowledge Base | CBT - Natural Helpers Tool' },
             { path: 'pages/faq', component: FaqComponent, title: 'FAQ | CBT - Natural Helpers Tool' },
+            { path: '**', redirectTo: '/login', pathMatch: 'full' },
         ],
     },
 

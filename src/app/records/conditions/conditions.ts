@@ -33,7 +33,8 @@ export class ConditionsComponent {
     }
 
     loadConditions(): void {
-        this.conditionService.getAll().subscribe({
+        this.conditionService.getAll()
+        .subscribe({
             next: (data) => {
                 this.conditionsList = data;
                 console.log(data);
@@ -105,7 +106,7 @@ export class ConditionsComponent {
 
         this.addConditionModal.close();
     }
-    
+
     deleteCondition(condition: any = null) {
         if(!condition) {
             return;

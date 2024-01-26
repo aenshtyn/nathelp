@@ -67,6 +67,8 @@ import { FooterComponent } from './layouts/footer';
 import { SidebarComponent } from './layouts/sidebar';
 import { ThemeCustomizerComponent } from './layouts/theme-customizer';
 
+import { httpInterceptorProviders } from './helpers/auth.interceptors';
+
 @NgModule({
     imports: [
         RouterModule.forRoot(routes, { scrollPositionRestoration: 'enabled' }),
@@ -127,6 +129,7 @@ import { ThemeCustomizerComponent } from './layouts/theme-customizer';
                 },
             },
         },
+        httpInterceptorProviders,
     ],
     bootstrap: [AppComponent],
 })
